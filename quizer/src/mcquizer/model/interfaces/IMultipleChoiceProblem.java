@@ -4,7 +4,7 @@
 
 package mcquizer.model.interfaces;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * A multiple choice problem to give to user to solve. The question is presented
@@ -21,59 +21,28 @@ public interface IMultipleChoiceProblem
 	 * @return the question
 	 */
 	public String getQuestion();
-	
+
 	/**
 	 * Get the answer to the question
 	 * 
 	 * @return the answer
 	 */
 	public String getCorrectAnswer();
-	
+
 	/**
-	 * Get other (incorrect) answers to present to the user.
+	 * Get the possible answers that the user can chose from.
 	 * 
-	 * @return other answers to give the user
+	 * @return answers to give the user
 	 */
-	public Set<String> getOtherAnswers();
-	
+	public List<String> getPossibleAnswers();
+
 	/**
-	 * Indicate that the user got the question correct. The question score will be
-	 * adjusted appropriately. Only one of this method or
-	 * {@link #setWrong(String)} should ever be called and only once.
+	 * Set the answer that the user provided.
 	 * 
-	 * @throws DoubleAnswerException if this method or {@link #setWrong(String)}
-	 *           was previously called
+	 * @param index
+	 *            The index of the answers (as given by
+	 *            {@link #getPossibleAnswers()}) that the user supplied.
+	 * @return if this is the correct answer
 	 */
-	public void setRight();
-	
-	/**
-	 * Indicate that the user got the question wrong. The question score will be
-	 * adjusted appropriately. Only one of this method or {@link #setRight()}
-	 * should ever be called and only once.
-	 * 
-	 * @param wrongAnswer The incorrect answer that the user gave
-	 * @throws DoubleAnswerException if this method or {@link #setRight()} was
-	 *           previously called
-	 */
-	public void setWrong(String wrongAnswer);
-	
-	/**
-	 * An exception to indicate to the user that they already answered the
-	 * question.
-	 */
-	public class DoubleAnswerException extends IllegalStateException
-	{
-		/**
-		 * A generated serial version
-		 */
-		private static final long serialVersionUID = -3158876903777648474L;
-		
-		/**
-		 * Minimal no argument constructor
-		 */
-		public DoubleAnswerException()
-		{
-			super();
-		}
-	}
+	public boolean setAnswered(int index);
 }

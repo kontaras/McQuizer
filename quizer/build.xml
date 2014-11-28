@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="McQuizer" default="build" basedir=".">
+	<property name="build" location="build" />
+	<property name="src.src" location="src" />
+	<property name="src.build" location="${build}/src" />
+	<property name="src.doc" location="${build}/doc" />
+
+	<target name="build" description="build the source of the project">
+		<mkdir dir="${src.build}" />
+		<javac srcdir="${src.src}" destdir="${src.build}" includeantruntime="false" />
+		<!--<jar destfile="lib/WPISuite.jar" basedir="bin" />-->
+	</target>
+
+	<target name="doc" description="Generate JavaDoc for the source" depends="build">
+		<javadoc sourcepath="${src.src}" access="private" destdir="${src.doc}" />
+	</target>
+
+	<target name="clean" description="Remove any compiled or derived files">
+		<delete dir="${build}" />
+		<delete dir="${src.doc}" />
+	</target>
+
+</project>

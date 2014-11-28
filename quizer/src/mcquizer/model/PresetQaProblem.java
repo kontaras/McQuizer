@@ -12,7 +12,7 @@ import mcquizer.model.interfaces.IQaPair;
  * 
  * @author Konstantin Naryshkin
  */
-public class PresetProblem implements IQaPair
+public class PresetQaProblem implements IQaPair
 {
 	/**
 	 * The answer for the problem
@@ -39,7 +39,7 @@ public class PresetProblem implements IQaPair
 	 * @param myAnswer The correct answer to the problem
 	 * @param myScore The score that this
 	 */
-	PresetProblem(String myQuestion, String myAnswer, int myScore)
+	PresetQaProblem(String myQuestion, String myAnswer, int myScore)
 	{
 		this.question = myQuestion;
 		this.answer = myAnswer;
