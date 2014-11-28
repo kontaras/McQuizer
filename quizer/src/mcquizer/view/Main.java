@@ -15,17 +15,17 @@ import javax.swing.event.ListSelectionListener;
 import mcquizer.controllers.BinaryTreeRandomProblemSelector;
 import mcquizer.controllers.IProblemSelector;
 import mcquizer.model.HardCodedProblemLoader;
-import mcquizer.model.interfaces.IMultipleChoiceProblem;
+import mcquizer.model.interfaces.IMcProblem;
 
 public class Main
 {
 
 	private final static class AnswerListener implements ListSelectionListener
 	{
-		IMultipleChoiceProblem problem;
+		IMcProblem problem;
 		Main parent;
 
-		public AnswerListener(IMultipleChoiceProblem quest, Main parent)
+		public AnswerListener(IMcProblem quest, Main parent)
 		{
 			this.problem = quest;
 			this.parent = parent;
@@ -106,7 +106,7 @@ public class Main
 
 	void setQuestion()
 	{
-		IMultipleChoiceProblem quest = this.selector.getNextProblem();
+		IMcProblem quest = this.selector.getNextProblem();
 
 		JTextPane questionPane = new JTextPane();
 		questionPane.setText(quest.getQuestion());

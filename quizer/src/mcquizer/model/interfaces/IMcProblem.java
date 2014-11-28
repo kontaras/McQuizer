@@ -13,7 +13,7 @@ import java.util.List;
  * 
  * @author Konstantin Naryshkin
  */
-public interface IMultipleChoiceProblem
+public interface IMcProblem
 {
 	/**
 	 * Get the question that the user should be asked

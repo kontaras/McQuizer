@@ -2,7 +2,7 @@ package mcquizer.model;
 
 import java.util.List;
 
-import mcquizer.model.interfaces.IMultipleChoiceProblem;
+import mcquizer.model.interfaces.IMcProblem;
 
 /**
  * A multiple choice question with a supplied question and answers, not backed
@@ -10,7 +10,7 @@ import mcquizer.model.interfaces.IMultipleChoiceProblem;
  * 
  * @author Konstantin Naryshkin
  */
-public class PresetMcProblem implements IMultipleChoiceProblem
+public class PresetMcProblem implements IMcProblem
 {
 	/** The question being asked */
 	private final String question;

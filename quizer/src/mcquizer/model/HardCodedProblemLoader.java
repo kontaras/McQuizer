@@ -6,7 +6,7 @@ package mcquizer.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import mcquizer.model.interfaces.IMultipleChoiceProblem;
+import mcquizer.model.interfaces.IMcProblem;
 
 /**
  * Temporary problem loader that gives a preset, hard coded list of problems for
@@ -22,9 +22,9 @@ public class HardCodedProblemLoader
 	 * @return The hard coded list of problems
 	 */
 	@SuppressWarnings("nls")
-	public static List<IMultipleChoiceProblem> getProblems()
+	public static List<IMcProblem> getProblems()
 	{
-		List<IMultipleChoiceProblem> probs = new ArrayList<>();
+		List<IMcProblem> probs = new ArrayList<>();
 
 		List<String> ans = new ArrayList<>();
 
@@ -42,23 +42,28 @@ public class HardCodedProblemLoader
 		ans.add("Postdate those from the Medieval level as well as Virgin soil");
 		ans.add("Predate those from the Medieval level as well as those from the Trash Pit");
 		ans.add("Predate those from the Medieval level but Post Date those from the Trash Pit");
-		probs.add(new PresetMcProblem("Artifacts found in the iron age levels:", new ArrayList<>(ans), 0));
+		probs.add(new PresetMcProblem(
+				"Artifacts found in the iron age levels:",
+				new ArrayList<>(ans), 0));
 
 		ans.clear();
 		ans.add("Trash pit<Iron Age Levels<Medieval Levels<Topsoil");
 		ans.add("Iron Age Levels<Trash pit<Medieval Levels<Topsoil");
 		ans.add("Virgin Soil<Trash pit<Iron Age Levels<Medieval Levels");
 		ans.add("Topsoil<Medieval Levels<Trash pit<Iron Age Levels");
-		probs.add(new PresetMcProblem("Which of the following squences in order of oldest to youngest, is correct:", new ArrayList<>(ans), 2));
-		
-		
+		probs.add(new PresetMcProblem(
+				"Which of the following squences in order of oldest to youngest, is correct:",
+				new ArrayList<>(ans), 2));
+
 		ans.clear();
 		ans.add("Dissemenation of data");
 		ans.add("Archeological Excavation");
 		ans.add("Selling of Artifacts at Auction");
 		ans.add("Survey");
-		probs.add(new PresetMcProblem("Which of the following is not part of the archaeological process:", new ArrayList<>(ans), 2));
-		
+		probs.add(new PresetMcProblem(
+				"Which of the following is not part of the archaeological process:",
+				new ArrayList<>(ans), 2));
+
 		return probs;
 	}
 }
