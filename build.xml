@@ -3,7 +3,7 @@
 <project name="McQuizer" default="build" basedir=".">
 	<property name="build" location="build" />
 	<property name="src" location="src" />
-	<property name="lib" location="lib" />
+	<property name="lib" location="${build}/lib" />
 	<property name="build.src" location="${build}/src" />
 	<property name="build.doc" location="${build}/doc" />
 
