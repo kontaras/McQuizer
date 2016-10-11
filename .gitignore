@@ -1,4 +1,3 @@
-/bin/**
 /build/**
-/.settings/**
-/bin/
+.classpath
+.project
