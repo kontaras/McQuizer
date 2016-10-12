@@ -32,6 +32,7 @@
 			<project />
 			<classpath>
 				<source path="${src}" />
+				<source path="test" />
 				<output path="${build.src}" />
 			</classpath>
 		</eclipse>

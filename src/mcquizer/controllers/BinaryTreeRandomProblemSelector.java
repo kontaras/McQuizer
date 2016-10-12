@@ -3,7 +3,7 @@ package mcquizer.controllers;
 import java.util.List;
 import java.util.Random;
 
-import mcquizer.model.interfaces.IMcProblem;
+import mcquizer.model.interfaces.IMCProblem;
 
 /**
  * Select a random problem weighted by score. Internally uses a binary tree to
@@ -13,7 +13,7 @@ import mcquizer.model.interfaces.IMcProblem;
 public class BinaryTreeRandomProblemSelector implements IProblemSelector
 {
 	/** The problems that we can be picked from */
-	private final List<IMcProblem> problems;
+	private final List<IMCProblem> problems;
 
 	/** The random number generator to use */
 	private final Random rng;
@@ -22,14 +22,14 @@ public class BinaryTreeRandomProblemSelector implements IProblemSelector
 	 * @param problems
 	 *            Problems to select from
 	 */
-	public BinaryTreeRandomProblemSelector(List<IMcProblem> problems)
+	public BinaryTreeRandomProblemSelector(List<IMCProblem> problems)
 	{
 		this.problems = problems;
 		this.rng = new Random();
 	}
 
 	@Override
-	public IMcProblem getNextProblem()
+	public IMCProblem getNextProblem()
 	{
 		// TODO: Implement properly
 

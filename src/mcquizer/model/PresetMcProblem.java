@@ -2,7 +2,7 @@ package mcquizer.model;
 
 import java.util.List;
 
-import mcquizer.model.interfaces.IMcProblem;
+import mcquizer.model.interfaces.IMCProblem;
 
 /**
  * A multiple choice question with a supplied question and answers, not backed
@@ -10,7 +10,7 @@ import mcquizer.model.interfaces.IMcProblem;
  * 
  * @author Konstantin Naryshkin
  */
-public class PresetMcProblem implements IMcProblem
+public class PresetMcProblem implements IMCProblem
 {
 	/** The question being asked */
 	private final String question;
@@ -20,6 +20,9 @@ public class PresetMcProblem implements IMcProblem
 
 	/** The index in {@link #answers} of the correct answer */
 	private final int correct;
+	
+	/** The weight of the problem */
+	private int weight;
 
 	/**
 	 * @param question
@@ -29,11 +32,12 @@ public class PresetMcProblem implements IMcProblem
 	 * @param correct
 	 *            The index in answers of the correct answer
 	 */
-	public PresetMcProblem(String question, List<String> answers, int correct)
+	public PresetMcProblem(String question, List<String> answers, int correct, int weight)
 	{
 		this.question = question;
 		this.answers = answers;
 		this.correct = correct;
+		this.weight = weight;
 	}
 
 	@Override
@@ -57,6 +61,21 @@ public class PresetMcProblem implements IMcProblem
 	@Override
 	public boolean setAnswered(int index)
 	{
-		return index == this.correct;
+		boolean right = index == this.correct;
+		if (right)
+		{
+			if(weight > 1)
+			{
+				this.weight--;
+			}
+		} else {
+			this.weight++;
+		}
+		return right;
+	}
+
+	@Override
+	public int getWeight() {
+		return weight;
 	}
 }

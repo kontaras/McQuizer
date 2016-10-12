@@ -12,20 +12,22 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import mcquizer.controllers.BinaryTreeRandomProblemSelector;
 import mcquizer.controllers.IProblemSelector;
+import mcquizer.controllers.LinearRandomSelector;
 import mcquizer.model.HardCodedProblemLoader;
-import mcquizer.model.interfaces.IMcProblem;
+import mcquizer.model.IProblemLoader;
+import mcquizer.model.XmlProblemLoader;
+import mcquizer.model.interfaces.IMCProblem;
 
 public class Main
 {
 
 	private final static class AnswerListener implements ListSelectionListener
 	{
-		IMcProblem problem;
+		IMCProblem problem;
 		Main parent;
 
-		public AnswerListener(IMcProblem quest, Main parent)
+		public AnswerListener(IMCProblem quest, Main parent)
 		{
 			this.problem = quest;
 			this.parent = parent;
@@ -34,7 +36,7 @@ public class Main
 		@Override
 		public void valueChanged(ListSelectionEvent e)
 		{
-			JList jList = (JList) e.getSource();
+			JList<?> jList = (JList<?>) e.getSource();
 			int selectedAnswer = jList.getSelectedIndex();
 
 			final String message;
@@ -83,9 +85,11 @@ public class Main
 	 */
 	public Main()
 	{
+		IProblemLoader loader = new XmlProblemLoader();
+		//IProblemLoader loader = new HardCodedProblemLoader();
 		this.selector =
-				new BinaryTreeRandomProblemSelector(
-						HardCodedProblemLoader.getProblems());
+				new LinearRandomSelector(
+						loader.getProblems());
 		initialize();
 	}
 
@@ -106,13 +110,13 @@ public class Main
 
 	void setQuestion()
 	{
-		IMcProblem quest = this.selector.getNextProblem();
+		IMCProblem quest = this.selector.getNextProblem();
 
 		JTextPane questionPane = new JTextPane();
 		questionPane.setText(quest.getQuestion());
 		this.splitPane.setLeftComponent(questionPane);
 
-		JList list = new JList(quest.getPossibleAnswers().toArray());
+		JList<Object> list = new JList<Object>(quest.getPossibleAnswers().toArray());
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addListSelectionListener(new AnswerListener(quest, this));
 		this.splitPane.setRightComponent(list);

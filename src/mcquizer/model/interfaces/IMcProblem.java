@@ -13,8 +13,7 @@ import java.util.List;
  * 
  * @author Konstantin Naryshkin
  */
-public interface IMcProblem
-{
+public interface IMCProblem {
 	/**
 	 * Get the question that the user should be asked
 	 * 
@@ -45,4 +44,12 @@ public interface IMcProblem
 	 * @return if this is the correct answer
 	 */
 	public boolean setAnswered(int index);
+
+	/**
+	 * Get the problem weight
+	 * 
+	 * @return The problem weight, with a higher value signifying that the
+	 *         problem needs more practice
+	 */
+	public int getWeight();
 }

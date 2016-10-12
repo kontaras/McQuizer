@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<questions>
+	<problem type="multipleChoice" question="q1a" weight="1" correct="1">
+		<answer>q1a1</answer>
+		<answer>*q1a2</answer>
+		<answer>q1a3</answer>
+		<answer>q1a4</answer>
+		<answer>q1a5</answer>
+	</problem>
+	<problem type="multipleChoice"  question="q2b" weight="1" correct="2">
+		<answer>q2a1</answer>
+		<answer>q2a2</answer>
+		<answer>*q2a3</answer>
+		<answer>q2a4</answer>
+	</problem>
+</questions>

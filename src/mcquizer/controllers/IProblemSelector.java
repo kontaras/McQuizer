@@ -4,7 +4,7 @@
 
 package mcquizer.controllers;
 
-import mcquizer.model.interfaces.IMcProblem;
+import mcquizer.model.interfaces.IMCProblem;
 
 /**
  * Controller to select the next question to ask of the user.
@@ -18,5 +18,5 @@ public interface IProblemSelector
 	 * 
 	 * @return The next problem that should be asked of the user
 	 */
-	public IMcProblem getNextProblem();
+	public IMCProblem getNextProblem();
 }
