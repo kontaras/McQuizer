@@ -16,11 +16,14 @@ import org.xml.sax.SAXException;
 
 import mcquizer.model.interfaces.IMCProblem;
 
+/**
+ * A problem loader that takes problems from an XML file
+ */
 public class XmlProblemLoader implements IProblemLoader {
 
 	@Override
 	public List<IMCProblem> getProblems() {
-		List<IMCProblem> probs = new ArrayList<IMCProblem>();
+		List<IMCProblem> probs = new ArrayList<>();
 		
 		File f = new File("test/testData.xml");
 		try {
@@ -39,7 +42,13 @@ public class XmlProblemLoader implements IProblemLoader {
 		return probs;
 	}
 
-	private IMCProblem parseProblem(Node problem) {
+	/**
+	 * Parse a single problem out of the XML file
+	 * 
+	 * @param problem	The XML node containing the problem
+	 * @return The problem object that the XML represents
+	 */
+	private static IMCProblem parseProblem(Node problem) {
 		String type = problem.getAttributes().getNamedItem("type").getTextContent();
 		switch (type) {
 			case "multipleChoice":
@@ -50,12 +59,18 @@ public class XmlProblemLoader implements IProblemLoader {
 				List<String> answers = parseAnswers(answerNodes);
 				return new PresetMcProblem(question, answers, correct, weight);
 			default:
-				return null;
+				throw new RuntimeException("Unsupported problem type");
 		}
 	}
 
-	private List<String> parseAnswers(NodeList raw) {
-		List<String> answers = new ArrayList<String>();
+	/**
+	 * Parse a list of XML nodes as problem answers
+	 * 
+	 * @param raw The raw answer nodes
+	 * @return A list of answers
+	 */
+	private static List<String> parseAnswers(NodeList raw) {
+		List<String> answers = new ArrayList<>();
 		for (int j = 0; j < raw.getLength(); j++)
 		{
 			Node part = raw.item(j);
