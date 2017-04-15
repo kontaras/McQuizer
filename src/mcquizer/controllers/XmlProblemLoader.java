@@ -1,7 +1,7 @@
-package mcquizer.model;
+package mcquizer.controllers;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +14,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import mcquizer.model.IProblemLoader;
+import mcquizer.model.PresetMcProblem;
 import mcquizer.model.interfaces.IMCProblem;
 
 /**
@@ -21,13 +23,18 @@ import mcquizer.model.interfaces.IMCProblem;
  */
 public class XmlProblemLoader implements IProblemLoader {
 
+	private InputStream file;
+
+	public XmlProblemLoader(InputStream file) {
+		this.file = file;
+	}
+
 	@Override
 	public List<IMCProblem> getProblems() {
 		List<IMCProblem> probs = new ArrayList<>();
 		
-		File f = new File("test/testData.xml");
 		try {
-			Document d = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(f);
+			Document d = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
 			NodeList problems = d.getDocumentElement().getElementsByTagName("problem");
 			for (int i = 0; i < problems.getLength(); i++)
 			{ 

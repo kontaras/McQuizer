@@ -2,6 +2,8 @@ package mcquizer.view;
 
 import java.awt.EventQueue;
 import java.awt.Frame;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -14,9 +16,9 @@ import javax.swing.event.ListSelectionListener;
 
 import mcquizer.controllers.IProblemSelector;
 import mcquizer.controllers.LinearRandomSelector;
+import mcquizer.controllers.XmlProblemLoader;
 import mcquizer.model.HardCodedProblemLoader;
 import mcquizer.model.IProblemLoader;
-import mcquizer.model.XmlProblemLoader;
 import mcquizer.model.interfaces.IMCProblem;
 
 public class Main
@@ -85,7 +87,14 @@ public class Main
 	 */
 	public Main()
 	{
-		IProblemLoader loader = new XmlProblemLoader();
+		IProblemLoader loader;
+		try {
+			loader = new XmlProblemLoader(new FileInputStream("test/testData.xml"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
 		//IProblemLoader loader = new HardCodedProblemLoader();
 		this.selector =
 				new LinearRandomSelector(

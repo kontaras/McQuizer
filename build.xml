@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="McQuizer" default="build" basedir=".">
+<project name="McQuizer" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 	<property name="build" location="build" />
 	<property name="src" location="src" />
+	<property name="test" location="test" />
 	<property name="lib" location="${build}/lib" />
 	<property name="build.src" location="${build}/src" />
+	<property name="build.test" location="${build}/test" />
 	<property name="build.doc" location="${build}/doc" />
 
 	<target name="build" description="build the source of the project">
 		<mkdir dir="${build.src}" />
 		<javac srcdir="${src}" destdir="${build.src}" includeantruntime="false" />
-		<!--<jar destfile="lib/WPISuite.jar" basedir="bin" />-->
+	</target>
+
+	<target name="build-tests" description="build the tests" depends="build, defs-test">
+		<mkdir dir="${build.test}" />
+		<javac srcdir="${test}" destdir="${build.test}" includeantruntime="false">
+			<classpath>
+				<pathelement path="${build.src}" />
+				<fileset dir="${lib}/test">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="test" depends="build-tests">
+		<mkdir dir="${build}/reports"/>
+		<junit>
+			<classpath>
+				<pathelement path="${build.test}" />
+				<pathelement path="${build.src}" />
+				<fileset dir="${lib}/test">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+			<formatter type="xml" />
+			<formatter type="brief" usefile="false" />
+			<batchtest todir="${build}/reports" skipNonTests="true">
+				<fileset dir="${test}">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
 	</target>
 
 	<target name="doc" description="Generate JavaDoc for the source" depends="build">
@@ -24,18 +57,31 @@
 	<target name="eclipse">
 		<property name="lib.ant-eclipse" location="${lib}/ant-eclipse" />
 		<mkdir dir="${lib.ant-eclipse}" />
-		<get dest="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" usetimestamp="true"
-		             src="http://downloads.sourceforge.net/project/ant-eclipse/ant-eclipse/1.0/ant-eclipse-1.0.bin.tar.bz2"/>
-		<untar compression="bzip2" src="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" dest="${lib.ant-eclipse}"/>
+		<get dest="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" usetimestamp="true" src="http://downloads.sourceforge.net/project/ant-eclipse/ant-eclipse/1.0/ant-eclipse-1.0.bin.tar.bz2" />
+		<untar compression="bzip2" src="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" dest="${lib.ant-eclipse}" />
 		<taskdef name="eclipse" classname="prantl.ant.eclipse.EclipseTask" classpath="${lib.ant-eclipse}/lib/ant-eclipse-1.0-jvm1.2.jar" />
 		<eclipse>
 			<project />
 			<classpath>
 				<source path="${src}" />
-				<source path="test" />
+				<source path="${test}" />
 				<output path="${build.src}" />
 			</classpath>
 		</eclipse>
+	</target>
+
+	<target name="ivy-install">
+		<property name="lib.ivy" location="${lib}/ivy/" />
+		<mkdir dir="${lib.ivy}" />
+		<get dest="${lib.ivy}" usetimestamp="true" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar" />
+		<path id="lib.ivy.path">
+			<fileset dir="${lib.ivy}" includes="*.jar" />
+		</path>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="lib.ivy.path" />
+	</target>
+
+	<target name="defs-test" depends="ivy-install">
+		<ivy:retrieve pattern="${lib}/test/[artifact]-[type].[ext]" />
 	</target>
 
 </project>
