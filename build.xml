@@ -8,6 +8,8 @@
 	<property name="build.src" location="${build}/src" />
 	<property name="build.test" location="${build}/test" />
 	<property name="build.doc" location="${build}/doc" />
+	<property name="build.reports" location="${build}/reports" />
+	<property name="ivy.conf.test" value="test" />
 
 	<target name="build" description="build the source of the project">
 		<mkdir dir="${build.src}" />
@@ -19,7 +21,7 @@
 		<javac srcdir="${test}" destdir="${build.test}" includeantruntime="false">
 			<classpath>
 				<pathelement path="${build.src}" />
-				<fileset dir="${lib}/test">
+				<fileset dir="${lib}/${ivy.conf.test}">
 					<include name="**/*.jar" />
 				</fileset>
 			</classpath>
@@ -27,8 +29,8 @@
 	</target>
 
 	<target name="test" depends="build-tests">
-		<mkdir dir="${build}/reports"/>
-		<junit>
+		<mkdir dir="${build.reports}"/>
+		<junit haltonfailure="true">
 			<classpath>
 				<pathelement path="${build.test}" />
 				<pathelement path="${build.src}" />
@@ -38,7 +40,7 @@
 			</classpath>
 			<formatter type="xml" />
 			<formatter type="brief" usefile="false" />
-			<batchtest todir="${build}/reports" skipNonTests="true">
+			<batchtest todir="${build.reports}" skipNonTests="true">
 				<fileset dir="${test}">
 					<include name="**/*Test*.java" />
 				</fileset>
@@ -81,7 +83,7 @@
 	</target>
 
 	<target name="defs-test" depends="ivy-install">
-		<ivy:retrieve pattern="${lib}/test/[artifact]-[type].[ext]" />
+		<ivy:retrieve pattern="${lib}/[conf]/[artifact]-[type].[ext]" conf="${ivy.conf.test}" />
 	</target>
 
 </project>

@@ -75,7 +75,7 @@ public class PresetMcProblem implements IMCProblem
 	}
 
 	@Override
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 }

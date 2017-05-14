@@ -28,14 +28,14 @@ public interface IQaPair
 	public String getAnswer();
 	
 	/**
-	 * Get the score of this problem. The score represents our confidence that the
+	 * Get the weight of this problem. The weight represents our confidence that the
 	 * user does not know the problem. A problem that the user has answered
-	 * correctly will have a low score, though the score will always be at least
+	 * correctly will have a low weight, though the weight will always be at least
 	 * 1. There is no upper limit on the score.
 	 * 
 	 * @return A positive number representing the score.
 	 */
-	public abstract double getScore();
+	public abstract double getWeight();
 	
 	/**
 	 * Change the score of this question by a value. If the delta will lower the
@@ -44,5 +44,5 @@ public interface IQaPair
 	 * 
 	 * @param delta	The increment to change the score by.
 	 */
-	abstract void changeScore(double delta);
+	abstract void changeWeight(double delta);
 }

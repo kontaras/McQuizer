@@ -51,5 +51,5 @@ public interface IMCProblem {
 	 * @return The problem weight, with a higher value signifying that the
 	 *         problem needs more practice
 	 */
-	public int getWeight();
+	public double getWeight();
 }

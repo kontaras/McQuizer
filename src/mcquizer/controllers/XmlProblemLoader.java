@@ -32,14 +32,22 @@ public class XmlProblemLoader implements IProblemLoader {
 	@Override
 	public List<IMCProblem> getProblems() {
 		List<IMCProblem> probs = new ArrayList<>();
-		
+
 		try {
 			Document d = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
-			NodeList problems = d.getDocumentElement().getElementsByTagName("problem");
-			for (int i = 0; i < problems.getLength(); i++)
-			{ 
-				Node problem = problems.item(i);
-				probs.add(parseProblem(problem));
+			String type = d.getDocumentElement().getAttributes().getNamedItem("type").getTextContent();
+			switch (type) {
+				case "multipleChoice":
+					NodeList problems = d.getDocumentElement().getElementsByTagName("problem");
+					for (int i = 0; i < problems.getLength(); i++) {
+						Node problem = problems.item(i);
+						probs.add(parseMultipleChoiceProblem(problem));
+					}
+					break;
+				case "pair":
+					break;
+				default:
+					throw new RuntimeException("Unsupported questions type");
 			}
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 			// TODO Auto-generated catch block
@@ -52,34 +60,29 @@ public class XmlProblemLoader implements IProblemLoader {
 	/**
 	 * Parse a single problem out of the XML file
 	 * 
-	 * @param problem	The XML node containing the problem
+	 * @param problem
+	 *            The XML node containing the problem
 	 * @return The problem object that the XML represents
 	 */
-	private static IMCProblem parseProblem(Node problem) {
-		String type = problem.getAttributes().getNamedItem("type").getTextContent();
-		switch (type) {
-			case "multipleChoice":
-				String question = problem.getAttributes().getNamedItem("question").getTextContent();
-				int weight = Integer.parseInt(problem.getAttributes().getNamedItem("weight").getTextContent());
-				int correct = Integer.parseInt(problem.getAttributes().getNamedItem("correct").getTextContent());
-				NodeList answerNodes = ((Element) problem).getElementsByTagName("answer") ;
-				List<String> answers = parseAnswers(answerNodes);
-				return new PresetMcProblem(question, answers, correct, weight);
-			default:
-				throw new RuntimeException("Unsupported problem type");
-		}
+	private static IMCProblem parseMultipleChoiceProblem(Node problem) {
+		String question = problem.getAttributes().getNamedItem("question").getTextContent();
+		int weight = Integer.parseInt(problem.getAttributes().getNamedItem("weight").getTextContent());
+		int correct = Integer.parseInt(problem.getAttributes().getNamedItem("correct").getTextContent());
+		NodeList answerNodes = ((Element) problem).getElementsByTagName("answer");
+		List<String> answers = parseMultipleChoiceAnswers(answerNodes);
+		return new PresetMcProblem(question, answers, correct, weight);
 	}
 
 	/**
 	 * Parse a list of XML nodes as problem answers
 	 * 
-	 * @param raw The raw answer nodes
+	 * @param raw
+	 *            The raw answer nodes
 	 * @return A list of answers
 	 */
-	private static List<String> parseAnswers(NodeList raw) {
+	private static List<String> parseMultipleChoiceAnswers(NodeList raw) {
 		List<String> answers = new ArrayList<>();
-		for (int j = 0; j < raw.getLength(); j++)
-		{
+		for (int j = 0; j < raw.getLength(); j++) {
 			Node part = raw.item(j);
 			answers.add(part.getTextContent());
 		}

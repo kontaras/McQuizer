@@ -28,7 +28,7 @@ public class PresetQaProblem implements IQaPair
 	 * The score, representing the confidence of the software that the user know
 	 * the answer. A lower score represents better knowledge.
 	 * 
-	 * @see #getScore()
+	 * @see #getWeight()
 	 */
 	private double score;
 	
@@ -71,7 +71,7 @@ public class PresetQaProblem implements IQaPair
 	 * @see com.magku.quizer.model.IQuestion#changeScore(int)
 	 */
 	@Override
-	public double getScore()
+	public double getWeight()
 	{
 		return this.score;
 	}
@@ -81,7 +81,7 @@ public class PresetQaProblem implements IQaPair
 	 * @see com.magku.quizer.model.IQuestion#changeScore(int)
 	 */
 	@Override
-	public void changeScore(double delta)
+	public void changeWeight(double delta)
 	{
 		this.score += delta;
 		if (this.score <= 0)
