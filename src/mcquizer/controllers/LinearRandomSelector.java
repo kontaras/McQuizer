@@ -14,12 +14,12 @@ public class LinearRandomSelector implements IProblemSelector {
 	private final Random rng;
 
 	/**
-	 * @param problems
+	 * @param probs
 	 *            Problems to select from
 	 */
-	public LinearRandomSelector(List<IMCProblem> problems)
+	public LinearRandomSelector(IMCProblem.MCProbemList probs)
 	{
-		this.problems = problems;
+		this.problems = probs;
 		this.rng = new Random();
 	}
 	

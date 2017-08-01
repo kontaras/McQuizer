@@ -47,9 +47,9 @@ public class PresetMcProblem implements IMCProblem
 	}
 
 	@Override
-	public String getCorrectAnswer()
+	public int getCorrectAnswer()
 	{
-		return this.answers.get(this.correct);
+		return this.correct;
 	}
 
 	@Override
@@ -59,19 +59,12 @@ public class PresetMcProblem implements IMCProblem
 	}
 
 	@Override
-	public boolean setAnswered(int index)
+	public void changeWeight(double delta)
 	{
-		boolean right = index == this.correct;
-		if (right)
-		{
-			if(weight > 1)
-			{
-				this.weight--;
-			}
-		} else {
-			this.weight++;
+		this.weight += delta;
+		if (this.weight < 1) {
+			this.weight = 1;
 		}
-		return right;
 	}
 
 	@Override

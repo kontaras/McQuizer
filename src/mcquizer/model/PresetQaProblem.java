@@ -25,25 +25,26 @@ public class PresetQaProblem implements IQaPair
 	private String question;
 	
 	/**
-	 * The score, representing the confidence of the software that the user know
-	 * the answer. A lower score represents better knowledge.
+	 * The weight, representing the confidence of the software that the user know
+	 * the answer. A lower weight represents better knowledge.
 	 * 
 	 * @see #getWeight()
 	 */
-	private double score;
+	private double weight;
 	
 	/**
 	 * Create a new problem instance
 	 * 
 	 * @param myQuestion The question that the problem asks
 	 * @param myAnswer The correct answer to the problem
-	 * @param myScore The score that this
+	 * @param myWeight The confidence weight for the problem. The higher the
+	 *          value, the more practice the user needs.
 	 */
-	PresetQaProblem(String myQuestion, String myAnswer, int myScore)
+	public PresetQaProblem(String myQuestion, String myAnswer, double myWeight)
 	{
 		this.question = myQuestion;
 		this.answer = myAnswer;
-		this.score = myScore;
+		this.weight = myWeight;
 	}
 	
 	/*
@@ -73,7 +74,7 @@ public class PresetQaProblem implements IQaPair
 	@Override
 	public double getWeight()
 	{
-		return this.score;
+		return this.weight;
 	}
 	
 	/*
@@ -83,10 +84,10 @@ public class PresetQaProblem implements IQaPair
 	@Override
 	public void changeWeight(double delta)
 	{
-		this.score += delta;
-		if (this.score <= 0)
+		this.weight += delta;
+		if (this.weight <= 0)
 		{
-			this.score = 1;
+			this.weight = 1;
 		}
 	}
 }

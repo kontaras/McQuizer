@@ -2,7 +2,7 @@ package mcquizer.model;
 
 import java.util.List;
 
-import mcquizer.model.interfaces.IMCProblem;
+import mcquizer.model.interfaces.IProblem;
 
 public interface IProblemLoader {
 
@@ -11,6 +11,6 @@ public interface IProblemLoader {
 	 * 
 	 * @return The hard coded list of problems
 	 */
-	public abstract List<IMCProblem> getProblems();
+	public abstract List<? extends IProblem> getProblems();
 
 }

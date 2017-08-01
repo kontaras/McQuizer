@@ -56,7 +56,7 @@
 		<delete dir="${build}" />
 	</target>
 
-	<target name="eclipse">
+	<target name="eclipse" depends="defs-test">
 		<property name="lib.ant-eclipse" location="${lib}/ant-eclipse" />
 		<mkdir dir="${lib.ant-eclipse}" />
 		<get dest="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" usetimestamp="true" src="http://downloads.sourceforge.net/project/ant-eclipse/ant-eclipse/1.0/ant-eclipse-1.0.bin.tar.bz2" />
@@ -68,6 +68,8 @@
 				<source path="${src}" />
 				<source path="${test}" />
 				<output path="${build.src}" />
+				<library path="${lib}/test/junit-jar.jar" />
+				<library path="${lib}/test/hamcrest-core-jar.jar" />
 			</classpath>
 		</eclipse>
 	</target>

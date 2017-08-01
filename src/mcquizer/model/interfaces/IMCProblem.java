@@ -4,6 +4,7 @@
 
 package mcquizer.model.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,43 +14,28 @@ import java.util.List;
  * 
  * @author Konstantin Naryshkin
  */
-public interface IMCProblem {
+public interface IMCProblem extends IProblem
+{
+	
 	/**
-	 * Get the question that the user should be asked
-	 * 
-	 * @return the question
-	 */
-	public String getQuestion();
-
-	/**
-	 * Get the answer to the question
+	 * Get the index into {@link #getPossibleAnswers()} of the correct answer to
+	 * the question
 	 * 
 	 * @return the answer
 	 */
-	public String getCorrectAnswer();
-
+	public int getCorrectAnswer();
+	
 	/**
 	 * Get the possible answers that the user can chose from.
 	 * 
 	 * @return answers to give the user
 	 */
 	public List<String> getPossibleAnswers();
-
-	/**
-	 * Set the answer that the user provided.
-	 * 
-	 * @param index
-	 *            The index of the answers (as given by
-	 *            {@link #getPossibleAnswers()}) that the user supplied.
-	 * @return if this is the correct answer
-	 */
-	public boolean setAnswered(int index);
-
-	/**
-	 * Get the problem weight
-	 * 
-	 * @return The problem weight, with a higher value signifying that the
-	 *         problem needs more practice
-	 */
-	public double getWeight();
+	
+	class MCProbemList extends ArrayList<IMCProblem>{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 8607296112799774506L;
+		}
 }

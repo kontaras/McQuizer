@@ -15,9 +15,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import mcquizer.controllers.IProblemSelector;
-import mcquizer.controllers.LinearRandomSelector;
+import mcquizer.controllers.ProblemSelectorFactory;
 import mcquizer.controllers.XmlProblemLoader;
-import mcquizer.model.HardCodedProblemLoader;
 import mcquizer.model.IProblemLoader;
 import mcquizer.model.interfaces.IMCProblem;
 
@@ -42,13 +41,16 @@ public class Main
 			int selectedAnswer = jList.getSelectedIndex();
 
 			final String message;
-			if (this.problem.setAnswered(selectedAnswer))
+			if (this.problem.getCorrectAnswer() == selectedAnswer)
 			{
 				message = "right";
+				this.problem.changeWeight(1);
 			}
 			else
 			{
-				message = "wrong, should be " + this.problem.getCorrectAnswer();
+				message = "wrong, should be " + this.problem.getPossibleAnswers()
+						.get(this.problem.getCorrectAnswer());
+				this.problem.changeWeight(-1);
 			}
 			JOptionPane.showMessageDialog(null, message);
 
@@ -67,6 +69,7 @@ public class Main
 	{
 		EventQueue.invokeLater(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				try
@@ -97,8 +100,7 @@ public class Main
 		}
 		//IProblemLoader loader = new HardCodedProblemLoader();
 		this.selector =
-				new LinearRandomSelector(
-						loader.getProblems());
+				ProblemSelectorFactory.getSelector(loader.getProblems());
 		initialize();
 	}
 
