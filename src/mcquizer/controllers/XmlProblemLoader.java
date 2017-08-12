@@ -98,6 +98,14 @@ public class XmlProblemLoader implements IProblemLoader
 	 */
 	private static IMCProblem parseMultipleChoiceProblem(Node problem)
 	{
+		/*
+		 * <problem question="q2b" weight="1" correct="2">
+		 * 		<answer>q2a1</answer>
+		 * 		<answer>q2a2</answer>
+		 * 		<answer>*q2a3</answer>
+		 * 		<answer>q2a4</answer>
+		 * 	</problem>
+		 */
 		final NamedNodeMap attribs = problem.getAttributes();
 		String question = attribs.getNamedItem("question").getTextContent();
 		int weight =
@@ -135,6 +143,9 @@ public class XmlProblemLoader implements IProblemLoader
 	 */
 	private static IQaPair parseQaPair(Node pair)
 	{
+		/*
+		 * <pair question='foo' answer='bar' weight='1' />
+		 */
 		final NamedNodeMap attribs = pair.getAttributes();
 		String question = attribs.getNamedItem("question").getTextContent();
 		String answer = attribs.getNamedItem("answer").getTextContent();
