@@ -3,12 +3,12 @@ package mcquizer.controllers;
 import java.util.List;
 import java.util.Random;
 
-import mcquizer.model.interfaces.IMCProblem;
+import mcquizer.model.interfaces.IProblem;
 
-public class LinearRandomSelector implements IProblemSelector {
+public class LinearRandomSelector<T extends IProblem> implements IProblemSelector<T> {
 
 	/** The problems that we can be picked from */
-	private final List<IMCProblem> problems;
+	private final List<T> problems;
 
 	/** The random number generator to use */
 	private final Random rng;
@@ -17,22 +17,22 @@ public class LinearRandomSelector implements IProblemSelector {
 	 * @param probs
 	 *            Problems to select from
 	 */
-	public LinearRandomSelector(IMCProblem.MCProbemList probs)
+	public LinearRandomSelector(List<T> probs)
 	{
 		this.problems = probs;
 		this.rng = new Random();
 	}
 	
 	@Override
-	public IMCProblem getNextProblem() {
+	public T getNextProblem() {
 		int sum = 0;
-		for (IMCProblem prob : this.problems)
+		for (T prob : this.problems)
 		{
 			sum += prob.getWeight();
 		}
 		
 		int num = this.rng.nextInt(sum);
-		for (IMCProblem prob : this.problems)
+		for (T prob : this.problems)
 		{
 			num -= prob.getWeight();
 			if (num < 0)

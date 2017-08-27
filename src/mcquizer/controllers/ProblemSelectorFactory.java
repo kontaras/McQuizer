@@ -12,13 +12,13 @@ import mcquizer.model.interfaces.IProblem;
 
 public class ProblemSelectorFactory
 {
-	public static IProblemSelector getSelector(List<? extends IProblem> probs)
+	public static IProblemSelector<IMCProblem> getSelector(List<? extends IProblem> probs)
 	{
 		if (probs instanceof IMCProblem.MCProbemList)
 		{
-			return new LinearRandomSelector((MCProbemList) probs);
+			return new LinearRandomSelector<IMCProblem>((MCProbemList) probs);
 		}
 		System.out.println(probs);
-		return new LinearRandomSelector(null);
+		return new LinearRandomSelector<IMCProblem>(null);
 	}
 }

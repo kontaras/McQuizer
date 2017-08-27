@@ -60,7 +60,7 @@ public class Main
 
 	private JFrame frame;
 	private JSplitPane splitPane;
-	private IProblemSelector selector;
+	private IProblemSelector<IMCProblem> selector;
 
 	/**
 	 * Launch the application.
