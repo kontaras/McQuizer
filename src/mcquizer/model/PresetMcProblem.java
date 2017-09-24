@@ -3,6 +3,7 @@ package mcquizer.model;
 import java.util.List;
 
 import mcquizer.model.interfaces.IMCProblem;
+import mcquizer.model.interfaces.IProblem;
 
 /**
  * A multiple choice question with a supplied question and answers, not backed
@@ -31,6 +32,8 @@ public class PresetMcProblem implements IMCProblem
 	 *            The possible answers to the question
 	 * @param correct
 	 *            The index in answers of the correct answer
+	 * @param weight
+	 * 						The weight of the problem (see {@link IProblem#getWeight()}
 	 */
 	public PresetMcProblem(String question, List<String> answers, int correct, int weight)
 	{
@@ -69,6 +72,6 @@ public class PresetMcProblem implements IMCProblem
 
 	@Override
 	public double getWeight() {
-		return weight;
+		return this.weight;
 	}
 }

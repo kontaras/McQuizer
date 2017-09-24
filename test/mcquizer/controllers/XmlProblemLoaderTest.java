@@ -20,13 +20,14 @@ import mcquizer.model.interfaces.IQaPair;
  *
  * @author Konstantin Naryshkin
  */
+@SuppressWarnings({"nls"})
 public class XmlProblemLoaderTest
 {
 	
 	/**
 	 * Test an empty multiple choice problem set
 	 */
-	@SuppressWarnings("static-method")
+	@SuppressWarnings({"static-method"})
 	@Test
 	public void testEmptyMc()
 	{

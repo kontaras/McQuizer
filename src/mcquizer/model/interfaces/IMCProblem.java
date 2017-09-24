@@ -1,9 +1,6 @@
-/**
- * 
- */
-
 package mcquizer.model.interfaces;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +29,17 @@ public interface IMCProblem extends IProblem
 	 */
 	public List<String> getPossibleAnswers();
 	
-	class MCProbemList extends ArrayList<IMCProblem>{
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 8607296112799774506L;
+	/**
+	 * A hack to get around type erasure. This was, the list type is known at run
+	 * time.
+	 *
+	 * @author Konstantin Naryshkin
+	 */
+	class MCProbemList extends ArrayList<IMCProblem> {
+		
+			/**
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID = 8607296112799774506L;
 		}
 }

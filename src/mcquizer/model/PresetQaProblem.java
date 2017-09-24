@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 package mcquizer.model;
 
 import mcquizer.model.interfaces.IQaPair;
@@ -47,40 +43,24 @@ public class PresetQaProblem implements IQaPair
 		this.weight = myWeight;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see com.magku.quizer.model.IQuestion#getQuestion()
-	 */
 	@Override
 	public String getQuestion()
 	{
 		return this.question;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see com.magku.quizer.model.IQuestion#getAnswer()
-	 */
 	@Override
 	public String getAnswer()
 	{
 		return this.answer;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see com.magku.quizer.model.IQuestion#changeScore(int)
-	 */
 	@Override
 	public double getWeight()
 	{
 		return this.weight;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see com.magku.quizer.model.IQuestion#changeScore(int)
-	 */
 	@Override
 	public void changeWeight(double delta)
 	{

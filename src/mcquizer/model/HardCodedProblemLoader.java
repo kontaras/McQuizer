@@ -1,6 +1,3 @@
-/**
- * 
- */
 package mcquizer.model;
 
 import java.util.ArrayList;

@@ -5,6 +5,13 @@ import java.util.Random;
 
 import mcquizer.model.interfaces.IProblem;
 
+/**
+ * A {@link IProblemSelector} that selects problem by iterating over the list of problems
+ *
+ *
+ * @author Konstantin Naryshkin
+ * @param <T> The type of problem that the the selector is selecting
+ */
 public class LinearRandomSelector<T extends IProblem> implements IProblemSelector<T> {
 
 	/** The problems that we can be picked from */

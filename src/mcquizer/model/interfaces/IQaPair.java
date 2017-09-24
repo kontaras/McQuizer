@@ -1,9 +1,6 @@
-/**
- * 
- */
-
 package mcquizer.model.interfaces;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -22,10 +19,16 @@ public interface IQaPair extends IProblem
 	 */
 	public String getAnswer();
 	
+	/**
+	 * A hack to get around type erasure. This was, the list type is known at run
+	 * time.
+	 *
+	 * @author Konstantin Naryshkin
+	 */
 	class PairProbemList extends ArrayList<IQaPair>{
 
 		/**
-		 * 
+		 * @see Serializable
 		 */
 		private static final long serialVersionUID = 2620188701729057058L;
 	}

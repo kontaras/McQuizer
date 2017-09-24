@@ -100,7 +100,7 @@ public class Main
 		}
 		//IProblemLoader loader = new HardCodedProblemLoader();
 		this.selector =
-				ProblemSelectorFactory.getSelector(loader.getProblems());
+				ProblemSelectorFactory.getMcSelector(loader.getProblems());
 		initialize();
 	}
 

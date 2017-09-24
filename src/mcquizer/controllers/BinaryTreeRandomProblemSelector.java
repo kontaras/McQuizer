@@ -9,6 +9,7 @@ import mcquizer.model.interfaces.IProblem;
  * Select a random problem weighted by score. Internally uses a binary tree to
  * 
  * @author Konstantin Naryshkin
+ * @param <T> The type of problem that the the selector is selecting
  */
 public class BinaryTreeRandomProblemSelector<T extends IProblem> implements IProblemSelector<T>
 {

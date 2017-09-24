@@ -1,11 +1,9 @@
-/**
- * 
- */
 package mcquizer.model.interfaces;
 
 /**
+ * The properties that are shared by all problems, regardless of type
  *
- * @author kostya
+ * @author Konstantin Naryshkin
  */
 public interface IProblem
 {
