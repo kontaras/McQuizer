@@ -23,7 +23,7 @@ public class PresetMcProblem implements IMCProblem
 	private final int correct;
 	
 	/** The weight of the problem */
-	private int weight;
+	private double weight;
 
 	/**
 	 * @param question
@@ -35,7 +35,7 @@ public class PresetMcProblem implements IMCProblem
 	 * @param weight
 	 *            The weight of the problem (see {@link IProblem#getWeight()}
 	 */
-	public PresetMcProblem(String question, List<String> answers, int correct, int weight)
+	public PresetMcProblem(String question, List<String> answers, int correct, double weight)
 	{
 		this.question = question;
 		this.answers = answers;
