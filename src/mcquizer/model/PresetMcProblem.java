@@ -33,7 +33,7 @@ public class PresetMcProblem implements IMCProblem
 	 * @param correct
 	 *            The index in answers of the correct answer
 	 * @param weight
-	 * 						The weight of the problem (see {@link IProblem#getWeight()}
+	 *            The weight of the problem (see {@link IProblem#getWeight()}
 	 */
 	public PresetMcProblem(String question, List<String> answers, int correct, int weight)
 	{
