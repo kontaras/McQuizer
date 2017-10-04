@@ -37,7 +37,7 @@ public class Checker
 	 * @param score The expected score
 	 * @param actual The value to test
 	 */
-	private static void checkProblem(String question, double score, IProblem actual) {
+	public static void checkProblem(String question, double score, IProblem actual) {
 		Assert.assertEquals(question, actual.getQuestion());
 		Assert.assertEquals(score, actual.getWeight(), score / 100000);
 	}
