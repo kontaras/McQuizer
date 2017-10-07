@@ -38,11 +38,14 @@ public class PresetMcProblemTest
 		String question = "Test question";
 		List<String> answers =  Arrays.asList("answer");
 		double score = 3.14;
-		double delta = -1.2345465;
 		int correctChoice = 0;
 		final PresetMcProblem problem = new PresetMcProblem(question, answers, correctChoice, score);
+		Assert.assertEquals(score, problem.getWeight(), score / 10000);
+		
+		double delta = -1.2345465;
 		problem.changeWeight(delta);
 		Assert.assertEquals(score + delta, problem.getWeight(), score / 10000);
+		
 		problem.changeWeight(Double.NEGATIVE_INFINITY);
 		Assert.assertEquals(1, problem.getWeight(), score / 10000);
 	}
