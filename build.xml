@@ -23,7 +23,7 @@
 		<javac srcdir="${src}" destdir="${build.src}" includeantruntime="false" />
 	</target>
 
-	<target name="build-tests" description="build the tests" depends="build, defs-test">
+	<target name="build-tests" description="build the tests" depends="build, deps-tests">
 		<mkdir dir="${build.test}" />
 		<javac srcdir="${test}" destdir="${build.test}" includeantruntime="false">
 			<classpath>
@@ -63,7 +63,7 @@
 		<delete dir="${build}" />
 	</target>
 
-	<target name="eclipse" depends="defs-test">
+	<target name="eclipse" depends="deps-tests">
 		<property name="lib.ant-eclipse" location="${lib}/ant-eclipse" />
 		<mkdir dir="${lib.ant-eclipse}" />
 		<get dest="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" usetimestamp="true" src="http://downloads.sourceforge.net/project/ant-eclipse/ant-eclipse/1.0/ant-eclipse-1.0.bin.tar.bz2" />
@@ -86,7 +86,7 @@
 		<get dest="${lib.ivy}" usetimestamp="true" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar" />
 	</target>
 
-	<target name="defs-test" depends="ivy-install">
+	<target name="deps-tests" depends="ivy-install">
 		<ivy:retrieve pattern="${lib}/[conf]/[artifact]-[type].[ext]" conf="${ivy.conf.test}" />
 	</target>
 
