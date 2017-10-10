@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="McQuizer" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="McQuizer" default="build" basedir="."
+		xmlns:ivy="antlib:org.apache.ivy.ant"
+		xmlns:if="ant:if"
+		xmlns:unless="ant:unless">
 	<property name="build" location="build" />
 	<property name="src" location="src" />
 	<property name="test" location="test" />
@@ -10,13 +13,6 @@
 	<property name="build.doc" location="${build}/doc" />
 	<property name="build.reports" location="${build}/reports" />
 	<property name="ivy.conf.test" value="test" />
-	<property name="lib.ivy" location="${lib}/ivy/" />
-	
-	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant">
-		<classpath>
-			<fileset dir="${lib.ivy}" includes="*.jar" />
-		</classpath>
-	</taskdef>
 
 	<target name="build" description="build the source of the project">
 		<mkdir dir="${build.src}" />
@@ -82,8 +78,15 @@
 	</target>
 
 	<target name="ivy-install">
+		<property name="lib.ivy" location="${lib}/ivy/" />
 		<mkdir dir="${lib.ivy}" />
 		<get dest="${lib.ivy}" usetimestamp="true" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar" />
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" unless:set="ivy.init">
+			<classpath>
+				<fileset dir="${lib.ivy}" includes="*.jar" />
+			</classpath>
+		</taskdef>
+		<property name="ivy.init" value="true" />
 	</target>
 
 	<target name="deps-tests" depends="ivy-install">
