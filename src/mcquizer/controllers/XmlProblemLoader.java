@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,6 +37,11 @@ public class XmlProblemLoader implements IProblemLoader
 	private InputStream file;
 	
 	/**
+	 * Logger to use in all methods of all instances
+	 */
+	private final static Logger LOG = Logger.getLogger(XmlProblemLoader.class.getName());
+	
+	/**
 	 * @param file The file to load questions from
 	 */
 	public XmlProblemLoader(InputStream file)
@@ -54,6 +60,7 @@ public class XmlProblemLoader implements IProblemLoader
 					.parse(this.file);
 			String type = d.getDocumentElement().getAttributes().getNamedItem("type")
 					.getTextContent();
+			LOG.info("Problem set type " + type);
 			switch (type)
 			{
 				case "multipleChoice":
@@ -78,6 +85,7 @@ public class XmlProblemLoader implements IProblemLoader
 					probs = pprobs;
 					break;
 				default:
+					LOG.warning("Unsupported problem set type " + type); //$NON-NLS-1$
 					throw new RuntimeException("Unsupported questions type");
 			}
 		}
