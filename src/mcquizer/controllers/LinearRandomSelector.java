@@ -3,7 +3,7 @@ package mcquizer.controllers;
 import java.util.List;
 import java.util.Random;
 
-import mcquizer.model.interfaces.IProblem;
+import mcquizer.model.interfaces.ISelectable;
 
 /**
  * A {@link IProblemSelector} that selects problem by iterating over the list of problems
@@ -12,7 +12,7 @@ import mcquizer.model.interfaces.IProblem;
  * @author Konstantin Naryshkin
  * @param <T> The type of problem that the the selector is selecting
  */
-public class LinearRandomSelector<T extends IProblem> implements IProblemSelector<T> {
+public class LinearRandomSelector<T extends ISelectable> implements IProblemSelector<T> {
 
 	/** The problems that we can be picked from */
 	private final List<T> problems;
