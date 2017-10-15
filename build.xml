@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="McQuizer" default="build" basedir="."
-		xmlns:ivy="antlib:org.apache.ivy.ant"
-		xmlns:if="ant:if"
-		xmlns:unless="ant:unless"
-		xmlns:jacoco="antlib:org.jacoco.ant">
+<project name="McQuizer" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:if="ant:if" xmlns:unless="ant:unless" xmlns:jacoco="antlib:org.jacoco.ant">
 
 	<property name="build" location="build" />
 	<property name="src" location="src" />
@@ -15,14 +11,6 @@
 	<property name="build.doc" location="${build}/doc" />
 	<property name="build.reports" location="${build}/reports" />
 	<property name="ivy.conf.test" value="test" />
-
-	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-		<classpath>
-			<fileset dir="${lib}/test">
-				<include name="**/*.jar" />
-			</fileset>
-		</classpath>
-	</taskdef>
 
 	<target name="build" description="build the source of the project">
 		<mkdir dir="${build.src}" />
@@ -42,7 +30,7 @@
 	</target>
 
 	<target name="test" depends="build-tests">
-		<mkdir dir="${build.reports}"/>
+		<mkdir dir="${build.reports}" />
 		<jacoco:coverage destfile="${build}/jacoco.exec">
 			<junit haltonfailure="true" fork="true">
 				<classpath>
@@ -64,7 +52,7 @@
 		<jacoco:report>
 
 			<executiondata>
-				<file file="${build}/jacoco.exec"/>
+				<file file="${build}/jacoco.exec" />
 			</executiondata>
 
 			<structure name="Example Project">
@@ -72,11 +60,11 @@
 					<fileset dir="${build.src}" />
 				</classfiles>
 				<sourcefiles encoding="UTF-8">
-					<fileset dir="src"/>
+					<fileset dir="src" />
 				</sourcefiles>
 			</structure>
 
-			<html destdir="${build.reports}"/>
+			<html destdir="${build.reports}" />
 
 		</jacoco:report>
 	</target>
@@ -121,6 +109,14 @@
 
 	<target name="deps-tests" depends="ivy-install">
 		<ivy:retrieve pattern="${lib}/[conf]/[artifact]-[type].[ext]" conf="${ivy.conf.test}" />
+
+		<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+			<classpath>
+				<fileset dir="${lib}/test">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</taskdef>
 	</target>
 
 </project>
