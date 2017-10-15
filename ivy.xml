@@ -2,9 +2,11 @@
     <info organisation="" module=""/>
     <configurations>
     	<conf name="test" description="test only dependencies" />
+    	<conf name="jacoco" description="the JACoCo code coverage library" />
     </configurations>
     <dependencies>
-        <dependency org="junit" name="junit" rev="4.12"/>
-        <dependency org="org.jacoco" name="org.jacoco.ant" rev="latest.release" />
+        <dependency org="junit" name="junit" rev="4.12" conf="test->default" />
+        <dependency org="org.jacoco" name="org.jacoco.ant" rev="latest.release"
+        	conf="jacoco->default" />
     </dependencies>
 </ivy-module>

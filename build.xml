@@ -10,14 +10,13 @@
 	<property name="build.test" location="${build}/test" />
 	<property name="build.doc" location="${build}/doc" />
 	<property name="build.reports" location="${build}/reports" />
-	<property name="ivy.conf.test" value="test" />
 
 	<target name="build" description="build the source of the project">
 		<mkdir dir="${build.src}" />
 		<javac srcdir="${src}" destdir="${build.src}" includeantruntime="false" />
 	</target>
 
-	<target name="build-tests" description="build the tests" depends="build, deps-tests">
+	<target name="build-tests" description="build the tests" depends="build, deps-tests, install-jacoco">
 		<mkdir dir="${build.test}" />
 		<javac srcdir="${test}" destdir="${build.test}" includeantruntime="false">
 			<classpath>
@@ -54,7 +53,7 @@
 				<file file="${build}/jacoco.exec" />
 			</executiondata>
 
-			<structure name="Example Project">
+			<structure name="McQuizer">
 				<classfiles>
 					<fileset dir="${build.src}" />
 				</classfiles>
@@ -95,7 +94,7 @@
 		</eclipse>
 	</target>
 
-	<target name="ivy-install">
+	<target name="install-ivy">
 		<property name="lib.ivy" location="${lib}/ivy/" />
 		<mkdir dir="${lib.ivy}" />
 		<get dest="${lib.ivy}" usetimestamp="true" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar" />
@@ -107,12 +106,24 @@
 		<property name="ivy.init" value="true" />
 	</target>
 
-	<target name="deps-tests" depends="ivy-install">
-		<ivy:retrieve pattern="${lib}/[conf]/[artifact]-[type].[ext]" conf="${ivy.conf.test}" />
+	<target name="deps-tests" depends="install-ivy">
+		<ivy:retrieve pattern="${lib}/[conf]/[artifact]-[type].[ext]" conf="test" />
 
 		<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
 			<classpath>
 				<fileset dir="${lib}/test">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</taskdef>
+	</target>
+
+	<target name="install-jacoco" depends="install-ivy">
+		<ivy:retrieve pattern="${lib}/[conf]/[artifact].[ext]" conf="jacoco" />
+
+		<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+			<classpath>
+				<fileset dir="${lib}/jacoco">
 					<include name="**/*.jar" />
 				</fileset>
 			</classpath>
