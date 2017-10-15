@@ -65,7 +65,7 @@
 			</structure>
 
 			<html destdir="${build.reports}" />
-			<xml destfile="${build.reports}.xml" />
+			<xml destfile="${build}/jacoco.xml" />
 
 		</jacoco:report>
 	</target>
