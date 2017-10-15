@@ -3,7 +3,9 @@
 <project name="McQuizer" default="build" basedir="."
 		xmlns:ivy="antlib:org.apache.ivy.ant"
 		xmlns:if="ant:if"
-		xmlns:unless="ant:unless">
+		xmlns:unless="ant:unless"
+		xmlns:jacoco="antlib:org.jacoco.ant">
+
 	<property name="build" location="build" />
 	<property name="src" location="src" />
 	<property name="test" location="test" />
@@ -13,6 +15,14 @@
 	<property name="build.doc" location="${build}/doc" />
 	<property name="build.reports" location="${build}/reports" />
 	<property name="ivy.conf.test" value="test" />
+
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+		<classpath>
+			<fileset dir="${lib}/test">
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
 
 	<target name="build" description="build the source of the project">
 		<mkdir dir="${build.src}" />
@@ -33,22 +43,42 @@
 
 	<target name="test" depends="build-tests">
 		<mkdir dir="${build.reports}"/>
-		<junit haltonfailure="true">
-			<classpath>
-				<pathelement path="${build.test}" />
-				<pathelement path="${build.src}" />
-				<fileset dir="${lib}/test">
-					<include name="**/*.jar" />
-				</fileset>
-			</classpath>
-			<formatter type="xml" />
-			<formatter type="brief" usefile="false" />
-			<batchtest todir="${build.reports}" skipNonTests="true">
-				<fileset dir="${test}">
-					<include name="**/*Test*.java" />
-				</fileset>
-			</batchtest>
-		</junit>
+		<jacoco:coverage destfile="${build}/jacoco.exec">
+			<junit haltonfailure="true" fork="true">
+				<classpath>
+					<pathelement path="${build.test}" />
+					<pathelement path="${build.src}" />
+					<fileset dir="${lib}/test">
+						<include name="**/*.jar" />
+					</fileset>
+				</classpath>
+				<formatter type="brief" usefile="false" />
+				<batchtest skipNonTests="true">
+					<fileset dir="${test}">
+						<include name="**/*Test*.java" />
+					</fileset>
+				</batchtest>
+			</junit>
+		</jacoco:coverage>
+
+		<jacoco:report>
+
+			<executiondata>
+				<file file="${build}/jacoco.exec"/>
+			</executiondata>
+
+			<structure name="Example Project">
+				<classfiles>
+					<fileset dir="${build.src}" />
+				</classfiles>
+				<sourcefiles encoding="UTF-8">
+					<fileset dir="src"/>
+				</sourcefiles>
+			</structure>
+
+			<html destdir="${build.reports}"/>
+
+		</jacoco:report>
 	</target>
 
 	<target name="doc" description="Generate JavaDoc for the source" depends="build">
