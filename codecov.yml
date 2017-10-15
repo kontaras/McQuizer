@@ -1,2 +1,6 @@
 fixes:
   - "::src/"
+
+codecov:
+  ci:
+    - travis-ci.org
