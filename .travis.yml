@@ -1,6 +1,13 @@
 language: java
+
 install: ant deps-tests
-script: ant test
+
+script:
+  ant test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 jdk:
   - oraclejdk8
   - oraclejdk9
