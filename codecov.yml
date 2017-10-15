@@ -5,5 +5,5 @@ codecov:
   ci:
     - travis
     
-notify:
-  require_ci_to_pass: no
+  notify:
+    require_ci_to_pass: no
