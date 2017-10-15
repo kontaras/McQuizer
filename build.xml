@@ -21,9 +21,7 @@
 		<javac srcdir="${test}" destdir="${build.test}" includeantruntime="false">
 			<classpath>
 				<pathelement path="${build.src}" />
-				<fileset dir="${lib}/${ivy.conf.test}">
-					<include name="**/*.jar" />
-				</fileset>
+				<fileset refid="testset" />
 			</classpath>
 		</javac>
 	</target>
@@ -35,9 +33,7 @@
 				<classpath>
 					<pathelement path="${build.test}" />
 					<pathelement path="${build.src}" />
-					<fileset dir="${lib}/test">
-						<include name="**/*.jar" />
-					</fileset>
+					<fileset refid="testset" />
 				</classpath>
 				<formatter type="brief" usefile="false" />
 				<batchtest skipNonTests="true">
@@ -107,26 +103,14 @@
 	</target>
 
 	<target name="deps-tests" depends="install-ivy">
-		<ivy:retrieve pattern="${lib}/[conf]/[artifact]-[type].[ext]" conf="test" />
-
-		<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-			<classpath>
-				<fileset dir="${lib}/test">
-					<include name="**/*.jar" />
-				</fileset>
-			</classpath>
-		</taskdef>
+		<ivy:retrieve pattern="${lib}/[conf]/[artifact]-[type].[ext]" conf="test" setId="testset" />
 	</target>
 
 	<target name="install-jacoco" depends="install-ivy">
-		<ivy:retrieve pattern="${lib}/[conf]/[artifact].[ext]" conf="jacoco" />
+		<ivy:retrieve pattern="${lib}/[conf]/[artifact].[ext]" conf="jacoco" pathId="jacocopath"/>
 
 		<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-			<classpath>
-				<fileset dir="${lib}/jacoco">
-					<include name="**/*.jar" />
-				</fileset>
-			</classpath>
+			<classpath refid="jacocopath" />
 		</taskdef>
 	</target>
 
