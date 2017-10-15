@@ -31,7 +31,7 @@
 
 	<target name="test" depends="build-tests">
 		<mkdir dir="${build.reports}" />
-		<jacoco:coverage destfile="${build}/jacoco.exec">
+		<jacoco:coverage destfile="${build}/jacoco.exec" append="false">
 			<junit haltonfailure="true" fork="true">
 				<classpath>
 					<pathelement path="${build.test}" />
@@ -50,7 +50,6 @@
 		</jacoco:coverage>
 
 		<jacoco:report>
-
 			<executiondata>
 				<file file="${build}/jacoco.exec" />
 			</executiondata>
@@ -59,8 +58,8 @@
 				<classfiles>
 					<fileset dir="${build.src}" />
 				</classfiles>
-				<sourcefiles encoding="UTF-8">
-					<fileset dir="src" />
+				<sourcefiles>
+					<fileset dir="${src}" />
 				</sourcefiles>
 			</structure>
 
