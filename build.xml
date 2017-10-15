@@ -5,7 +5,13 @@
 	<property name="build" location="build" />
 	<property name="src" location="src" />
 	<property name="test" location="test" />
+	
 	<property name="lib" location="${build}/lib" />
+	<property name="lib.tools" location="${build}/tools" />
+	<property name="lib.ivy" location="${lib.tools}/ivy/" />
+	<property name="lib.ant-eclipse" location="${lib.tools}/ant-eclipse" />
+	<property name="lib.jacoco" location="${lib.tools}/jacoco/" />
+	
 	<property name="build.src" location="${build}/src" />
 	<property name="build.test" location="${build}/test" />
 	<property name="build.doc" location="${build}/doc" />
@@ -16,7 +22,7 @@
 		<javac srcdir="${src}" destdir="${build.src}" includeantruntime="false" />
 	</target>
 
-	<target name="build-tests" description="build the tests" depends="build, deps-tests, install-jacoco">
+	<target name="build-tests" description="build the tests" depends="build, deps-tests">
 		<mkdir dir="${build.test}" />
 		<javac srcdir="${test}" destdir="${build.test}" includeantruntime="false">
 			<classpath>
@@ -26,7 +32,7 @@
 		</javac>
 	</target>
 
-	<target name="test" depends="build-tests">
+	<target name="test" depends="build-tests, install-jacoco">
 		<mkdir dir="${build.reports}" />
 		<jacoco:coverage destfile="${build}/jacoco.exec" append="false">
 			<junit haltonfailure="true" fork="true">
@@ -59,7 +65,7 @@
 			</structure>
 
 			<html destdir="${build.reports}" />
-			<xml destfile="${build}/jacoco.xml" />
+			<xml destfile="${build.reports}/jacoco.xml" />
 
 		</jacoco:report>
 	</target>
@@ -73,7 +79,6 @@
 	</target>
 
 	<target name="eclipse" depends="deps-tests">
-		<property name="lib.ant-eclipse" location="${lib}/ant-eclipse" />
 		<mkdir dir="${lib.ant-eclipse}" />
 		<get dest="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" usetimestamp="true" src="http://downloads.sourceforge.net/project/ant-eclipse/ant-eclipse/1.0/ant-eclipse-1.0.bin.tar.bz2" />
 		<untar compression="bzip2" src="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" dest="${lib.ant-eclipse}" />
@@ -91,7 +96,6 @@
 	</target>
 
 	<target name="install-ivy">
-		<property name="lib.ivy" location="${lib}/ivy/" />
 		<mkdir dir="${lib.ivy}" />
 		<get dest="${lib.ivy}" usetimestamp="true" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar" />
 		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" unless:set="ivy.init">
@@ -107,7 +111,7 @@
 	</target>
 
 	<target name="install-jacoco" depends="install-ivy">
-		<ivy:retrieve pattern="${lib}/[conf]/[artifact].[ext]" conf="jacoco" pathId="jacocopath"/>
+		<ivy:retrieve pattern="${lib.jacoco}/[artifact].[ext]" conf="jacoco" pathId="jacocopath"/>
 
 		<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
 			<classpath refid="jacocopath" />
