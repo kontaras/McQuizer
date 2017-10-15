@@ -3,4 +3,4 @@ fixes:
 
 codecov:
   ci:
-    - travis-ci.org
+    - travis
