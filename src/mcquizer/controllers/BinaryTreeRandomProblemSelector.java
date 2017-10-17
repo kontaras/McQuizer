@@ -9,6 +9,7 @@ import mcquizer.model.interfaces.ISelectable;
 
 /**
  * Select a random problem weighted by score. Internally uses a binary tree to
+ * get log(n) selection.
  * 
  * @author Konstantin Naryshkin
  * @param <T> The type of problem that the the selector is selecting
@@ -16,14 +17,33 @@ import mcquizer.model.interfaces.ISelectable;
 public class BinaryTreeRandomProblemSelector<T extends ISelectable>
 		implements IProblemSelector<T>
 {
+	/**
+	 * A node making up the selection tree
+	 *
+	 * @author Konstantin Naryshkin
+	 */
 	private static class BinaryNode implements ISelectable
 	{
+		/**
+		 * Left half of the subtree
+		 */
 		ISelectable left;
 		
+		/**
+		 * Right half of the subtree
+		 */
 		ISelectable right;
 		
+		/**
+		 * The total weight of all the problems under this node
+		 */
 		double weight;
 		
+		/**
+		 * @param l Left subtree
+		 * @param r Right subtree
+		 * @param w Total weight of all problems in this tree
+		 */
 		public BinaryNode(ISelectable l, ISelectable r, double w)
 		{
 			this.left = l;
@@ -43,14 +63,20 @@ public class BinaryTreeRandomProblemSelector<T extends ISelectable>
 			return this.weight;
 		}
 		
+		/**
+		 * @return The left subtree
+		 */
 		public ISelectable getLeft()
 		{
-			return left;
+			return this.left;
 		}
 		
+		/**
+		 * @return The right subtree
+		 */
 		public ISelectable getRight()
 		{
-			return right;
+			return this.right;
 		}
 	}
 	
@@ -60,6 +86,9 @@ public class BinaryTreeRandomProblemSelector<T extends ISelectable>
 	/** The random number generator to use */
 	private final Random rng;
 	
+	/**
+	 * The root of the selection tree
+	 */
 	private final ISelectable root;
 	
 	/**
@@ -100,15 +129,20 @@ public class BinaryTreeRandomProblemSelector<T extends ISelectable>
 		return (T) current;
 	}
 	
-	private static <T extends ISelectable> ISelectable
-			buildSelectionTree(List<T> problems)
+	/**
+	 * Build a balanced selection tree
+	 * 
+	 * @param leaves The problems to put as leaves of the tree
+	 * @return A new tree
+	 */
+	private ISelectable buildSelectionTree(List<T> leaves)
 	{
-		List<ISelectable> currentLayer = new ArrayList<>(problems);
+		List<ISelectable> currentLayer = new ArrayList<>(leaves);
 		List<ISelectable> nextLayer;
 		while (currentLayer.size() > 1)
 		{
-			nextLayer = new ArrayList<>(problems.size() / 2 + 1);
-			for (int i = 0; i <= problems.size() - 1; i += 2)
+			nextLayer = new ArrayList<>(leaves.size() / 2 + 1);
+			for (int i = 0; i <= leaves.size() - 1; i += 2)
 			{
 				nextLayer.add(new BinaryNode(currentLayer.get(i),
 						currentLayer.get(i + 1), currentLayer.get(i).getWeight()
