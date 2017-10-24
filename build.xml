@@ -5,13 +5,13 @@
 	<property name="build" location="build" />
 	<property name="src" location="src" />
 	<property name="test" location="test" />
-	
+
 	<property name="lib" location="${build}/lib" />
 	<property name="lib.tools" location="${build}/tools" />
 	<property name="lib.ivy" location="${lib.tools}/ivy/" />
 	<property name="lib.ant-eclipse" location="${lib.tools}/ant-eclipse" />
 	<property name="lib.jacoco" location="${lib.tools}/jacoco/" />
-	
+
 	<property name="build.src" location="${build}/src" />
 	<property name="build.test" location="${build}/test" />
 	<property name="build.doc" location="${build}/doc" />
@@ -19,12 +19,12 @@
 
 	<target name="build" description="build the source of the project">
 		<mkdir dir="${build.src}" />
-		<javac srcdir="${src}" destdir="${build.src}" includeantruntime="false" />
+		<javac srcdir="${src}" destdir="${build.src}" includeantruntime="false" debug="true" />
 	</target>
 
 	<target name="build-tests" description="build the tests" depends="build, deps-tests">
 		<mkdir dir="${build.test}" />
-		<javac srcdir="${test}" destdir="${build.test}" includeantruntime="false">
+		<javac srcdir="${test}" destdir="${build.test}" includeantruntime="false" debug="true">
 			<classpath>
 				<pathelement path="${build.src}" />
 				<fileset refid="testset" />
@@ -111,7 +111,7 @@
 	</target>
 
 	<target name="install-jacoco" depends="install-ivy">
-		<ivy:retrieve pattern="${lib.jacoco}/[artifact].[ext]" conf="jacoco" pathId="jacocopath"/>
+		<ivy:retrieve pattern="${lib.jacoco}/[artifact].[ext]" conf="jacoco" pathId="jacocopath" />
 
 		<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
 			<classpath refid="jacocopath" />
