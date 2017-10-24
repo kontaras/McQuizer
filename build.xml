@@ -34,7 +34,7 @@
 
 	<target name="test" depends="build-tests, install-jacoco">
 		<mkdir dir="${build.reports}" />
-		<jacoco:coverage destfile="${build}/jacoco.exec" append="false">
+		<jacoco:coverage destfile="${build}/jacoco.exec" append="true">
 			<junit haltonfailure="true" fork="true">
 				<classpath>
 					<pathelement path="${build.test}" />
