@@ -62,18 +62,17 @@ public class Checker
 	
 	public static void checkSelectable(ISelectable expected, ISelectable actual)
 	{
-		if (expected instanceof IProblem)
-		{
-			Assert.assertTrue(actual instanceof IProblem);
-			IProblem asProblem = (IProblem) expected;
-			checkProblem(asProblem.getQuestion(), asProblem.getWeight(), (IProblem) actual);
-		}
 		if (expected instanceof IMCProblem)
 		{
 			Assert.assertTrue(actual instanceof IMCProblem);
 			IMCProblem asMc = (IMCProblem) expected;
 			checkMc(asMc.getQuestion(), asMc.getPossibleAnswers(), asMc.getWeight(), asMc.getCorrectAnswer(),
 					(IMCProblem) actual);
+		} else if (expected instanceof IProblem)
+		{
+			Assert.assertTrue(actual instanceof IProblem);
+			IProblem asProblem = (IProblem) expected;
+			checkProblem(asProblem.getQuestion(), asProblem.getWeight(), (IProblem) actual);
 		}
 	}
 	
