@@ -25,7 +25,7 @@ public class ProblemSelectorFactoryTest {
 		MCProbemList list = new MCProbemList();
 		list.add(prob);
 		IProblemSelector<?> selector = ProblemSelectorFactory.getMcSelector(list);
-		Checker.checkSelectable(prob, selector.getNextProblem());
+		Checker.smartCheckSelectable(prob, selector.getNextProblem());
 	}
 
 }
