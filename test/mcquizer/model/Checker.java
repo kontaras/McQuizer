@@ -7,6 +7,7 @@ import org.junit.Assert;
 import mcquizer.model.interfaces.IMCProblem;
 import mcquizer.model.interfaces.IProblem;
 import mcquizer.model.interfaces.IQaPair;
+import mcquizer.model.interfaces.ISelectable;
 
 /**
  *
@@ -57,6 +58,23 @@ public class Checker
 		checkProblem(question, score, actual);
 		Assert.assertEquals(answers, actual.getPossibleAnswers());
 		Assert.assertEquals(correctAnswer, actual.getCorrectAnswer());
+	}
+	
+	public static void checkSelectable(ISelectable expected, ISelectable actual)
+	{
+		if (expected instanceof IProblem)
+		{
+			Assert.assertTrue(actual instanceof IProblem);
+			IProblem asProblem = (IProblem) expected;
+			checkProblem(asProblem.getQuestion(), asProblem.getWeight(), (IProblem) actual);
+		}
+		if (expected instanceof IMCProblem)
+		{
+			Assert.assertTrue(actual instanceof IMCProblem);
+			IMCProblem asMc = (IMCProblem) expected;
+			checkMc(asMc.getQuestion(), asMc.getPossibleAnswers(), asMc.getWeight(), asMc.getCorrectAnswer(),
+					(IMCProblem) actual);
+		}
 	}
 	
 }
