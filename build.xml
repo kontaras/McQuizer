@@ -34,7 +34,7 @@
 
 	<target name="test" depends="build-tests, install-jacoco">
 		<mkdir dir="${build.reports}" />
-		<jacoco:coverage destfile="${build}/jacoco.exec" append="true">
+		<jacoco:coverage destfile="${build.reports}/jacoco.exec" append="true">
 			<junit haltonfailure="true" fork="true">
 				<classpath>
 					<pathelement path="${build.test}" />
@@ -52,7 +52,7 @@
 
 		<jacoco:report>
 			<executiondata>
-				<file file="${build}/jacoco.exec" />
+				<file file="${build.reports}/jacoco.exec" />
 			</executiondata>
 
 			<structure name="McQuizer">
@@ -64,7 +64,7 @@
 				</sourcefiles>
 			</structure>
 
-			<html destdir="${build.reports}" />
+			<html destdir="${build.reports}/html/" />
 			<xml destfile="${build.reports}/jacoco.xml" />
 
 		</jacoco:report>
@@ -75,7 +75,11 @@
 	</target>
 
 	<target name="clean" description="Remove any compiled or derived files">
-		<delete dir="${build}" />
+		<delete dir="${build.src}" />
+		<delete dir="${build.test}" />
+		<delete dir="${build.reports}" />
+		<delete dir="${build.doc}" />
+		<delete dir="${lib}"/>
 	</target>
 
 	<target name="eclipse" depends="deps-tests">
