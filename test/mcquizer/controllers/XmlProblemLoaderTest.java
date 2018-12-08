@@ -24,6 +24,18 @@ import mcquizer.model.interfaces.IQaPair;
 @SuppressWarnings({"nls"})
 public class XmlProblemLoaderTest
 {
+	/**
+	 * Test an unknown type of problem set
+	 */
+	@SuppressWarnings({"static-method"})
+	@Test(expected=RuntimeException.class)
+	public void testInvalid()
+	{
+		StringBuilder testData = new StringBuilder();
+		testData.append("<questions type='trash'>");
+		testData.append("</questions>");
+		Assert.assertEquals(0, getProblems(testData.toString()).size());
+	}
 	
 	/**
 	 * Test an empty multiple choice problem set
