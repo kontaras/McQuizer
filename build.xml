@@ -30,12 +30,19 @@
 				<fileset refid="testset" />
 			</classpath>
 		</javac>
+		
+		<copy todir="${build.test}">
+			<fileset dir="${test}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="test" depends="build-tests, install-jacoco">
 		<mkdir dir="${build.reports}" />
 		<jacoco:coverage destfile="${build.reports}/jacoco.exec" append="true">
 			<junit haltonfailure="true" fork="true">
+				<jvmarg value="-Djava.util.logging.config.file=${build.test}/logging.properties"/>
 				<classpath>
 					<pathelement path="${build.test}" />
 					<pathelement path="${build.src}" />
@@ -100,8 +107,10 @@
 	</target>
 
 	<target name="install-ivy">
+		<property name="ivy.filename" value="ivy-2.4.0.jar" />
+		<property name="ivy.filelocation" value="${lib.ivy}/${ivy.filename}" />
 		<mkdir dir="${lib.ivy}" />
-		<get dest="${lib.ivy}" usetimestamp="true" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar" />
+		<get dest="${ivy.filelocation}" usetimestamp="true" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/${ivy.filename}" />
 		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" unless:set="ivy.init">
 			<classpath>
 				<fileset dir="${lib.ivy}" includes="*.jar" />
