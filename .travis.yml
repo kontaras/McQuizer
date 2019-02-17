@@ -10,8 +10,15 @@ after_success:
 
 jdk:
   - oraclejdk8
-  - openjdk8
   - oraclejdk9
-  - openjdk10
+  - oraclejdk10
   - oraclejdk11
+  - openjdk8
+  - openjdk9
+  - openjdk10
   - openjdk11
+  - openjdk-ea
+
+matrix:
+  allow_failures:
+    - jdk: oraclejdk10
