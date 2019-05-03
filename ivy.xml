@@ -6,7 +6,7 @@
     </configurations>
     <dependencies>
         <dependency org="junit" name="junit" rev="4.12" conf="test->default" />
-        <dependency org="org.jacoco" name="org.jacoco.ant" rev="latest.release"
+        <dependency org="org.jacoco" name="org.jacoco.ant" rev="0.8.3"
         	conf="jacoco->default" />
     </dependencies>
 </ivy-module>
