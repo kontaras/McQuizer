@@ -13,12 +13,16 @@ jdk:
   - oraclejdk9
   - oraclejdk10
   - oraclejdk11
+  - oraclejdk12
   - openjdk8
   - openjdk9
   - openjdk10
   - openjdk11
+  - openjdk12
   - openjdk-ea
 
 matrix:
   allow_failures:
     - jdk: oraclejdk10
+    - jdk: oraclejdk12
+    - jdk: openjdk-ea
