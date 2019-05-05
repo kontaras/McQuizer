@@ -17,7 +17,8 @@ public class ProblemSelectorFactory
 	 * Get an {@link IProblemSelector} that returns {@link IMCProblem}.
 	 * 
 	 * @param probs	The problem list that the Selector will pick from
-	 * @return	A selector that randomly picks amoung the problems in the list
+	 * @return	A selector that randomly picks among the problems in the list
+	 * @throws IllegalArgumentException If the problem list is of an unexpected type.
 	 */
 	public static IProblemSelector<IMCProblem> getMcSelector(List<? extends IProblem> probs)
 	{
@@ -25,8 +26,6 @@ public class ProblemSelectorFactory
 		{
 			return new LinearRandomSelector<>((MCProbemList) probs);
 		}
-		//TODO: Throw if it is not an expected problem type
-		System.out.println(probs);
-		return new LinearRandomSelector<>(null);
+		throw new IllegalArgumentException("Unexpeced problem list " + probs.getClass());
 	}
 }
