@@ -12,10 +12,12 @@ pool:
 steps:
 - task: Ant@1
   inputs:
+    targets: 'clean build test'
     workingDirectory: ''
     buildFile: 'build.xml'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
-    publishJUnitResults: false
+    publishJUnitResults: true
     testResultsFiles: '**/jacoco.xml'
+    codeCoverageToolOptions: 'jaCoCo'
