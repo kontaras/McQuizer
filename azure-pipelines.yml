@@ -12,7 +12,7 @@ pool:
 steps:
 - task: Ant@1
   inputs:
-    targets: 'clean build test'
+    targets: 'clean build eclipse'
     workingDirectory: ''
     buildFile: 'build.xml'
     javaHomeOption: 'JDKVersion'
