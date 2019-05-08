@@ -89,7 +89,7 @@
 		<delete dir="${lib}"/>
 	</target>
 
-	<target name="eclipse" depends="deps-tests">
+	<target name="eclipse">
 		<mkdir dir="${lib.ant-eclipse}" />
 		<get dest="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" usetimestamp="true" src="http://downloads.sourceforge.net/project/ant-eclipse/ant-eclipse/1.0/ant-eclipse-1.0.bin.tar.bz2" />
 		<untar compression="bzip2" src="${lib.ant-eclipse}/ant-eclipse-1.0.bin.tar.bz2" dest="${lib.ant-eclipse}" />
