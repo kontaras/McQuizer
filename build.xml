@@ -111,11 +111,8 @@
 		<property name="ivy.filelocation" value="${lib.ivy}/${ivy.filename}" />
 		<mkdir dir="${lib.ivy}" />
 		<get dest="${ivy.filelocation}" usetimestamp="true" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/${ivy.filename}" />
-		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" unless:set="ivy.init">
-			<classpath>
-				<fileset dir="${lib.ivy}" includes="*.jar" />
-			</classpath>
-		</taskdef>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" unless:set="ivy.init" classpath="${lib.ivy}" />
+		<echo message="${ivy.filelocation}" />
 		<property name="ivy.init" value="true" />
 	</target>
 
